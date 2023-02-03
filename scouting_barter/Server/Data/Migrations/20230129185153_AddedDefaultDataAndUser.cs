@@ -22,12 +22,12 @@ namespace scouting_barter.Server.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "Id", "CustAddress", "CustContact", "CustDOB", "CustName" },
+                columns: new[] { "Id", "CustAddress", "CustContact", "CustName" },
                 values: new object[,]
                 {
-                    { 1, "Tampines Street 1", 91890078, "05/09/2001", "Jonathan Lim" },
-                    { 2, "Serangoon Street 1", 85788009, "10/06/1985", "Haziq Hakim" },
-                    { 3, "Toa Payoh Street 1", 95437721, "28/03/1999", "Gerald" }
+                    { 1, "Tampines Street 1", 91890078, "Jonathan Lim" },
+                    { 2, "Serangoon Street 1", 85788009, "Haziq Hakim" },
+                    { 3, "Toa Payoh Street 1", 95437721, "Gerald" }
                 });
 
             migrationBuilder.InsertData(

@@ -11,7 +11,5 @@ namespace scouting_barter.Shared.Domain
         public string CustName { get; set; }
         public string CustAddress { get; set; }
         public int CustContact { get; set; }
-        public string CustDOB { get; set; }
-        public virtual List<Order> Orders { get; set; }
     }
 }

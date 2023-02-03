@@ -8,8 +8,9 @@ namespace scouting_barter.Shared.Domain
 {
     public class Order : BaseDomainModel
     {
-        public string OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
+        public virtual List<Order> Orders { get; set; }
     }
 }

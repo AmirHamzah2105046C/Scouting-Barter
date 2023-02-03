@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace scouting_barter.Server.Data.Migrations
 {
@@ -15,7 +16,6 @@ namespace scouting_barter.Server.Data.Migrations
                     CustName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustContact = table.Column<int>(type: "int", nullable: false),
-                    CustDOB = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,7 +71,7 @@ namespace scouting_barter.Server.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     OrderItemId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -120,7 +120,7 @@ namespace scouting_barter.Server.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PaymentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PaymentDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OrderId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
