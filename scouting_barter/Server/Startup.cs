@@ -8,7 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using scouting_barter.Server.Data;
+using scouting_barter.Server.IRepository;
 using scouting_barter.Server.Models;
+using scouting_barter.Server.Repository;
 using System.Linq;
 
 namespace scouting_barter.Server
@@ -40,6 +42,8 @@ namespace scouting_barter.Server
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

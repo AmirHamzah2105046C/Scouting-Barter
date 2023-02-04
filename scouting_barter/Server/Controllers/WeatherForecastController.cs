@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace scouting_barter.Server.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
