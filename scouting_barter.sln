@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33027.164
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scouting_barter.Server", "scouting_barter\Server\scouting_barter.Server.csproj", "{5974C67C-2952-4B7C-A00F-2B5C9815B7FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "scouting_barter.Server", "scouting_barter\Server\scouting_barter.Server.csproj", "{5974C67C-2952-4B7C-A00F-2B5C9815B7FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scouting_barter.Client", "scouting_barter\Client\scouting_barter.Client.csproj", "{35A58133-4CCB-4D73-A3F3-22E14030B3F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "scouting_barter.Client", "scouting_barter\Client\scouting_barter.Client.csproj", "{35A58133-4CCB-4D73-A3F3-22E14030B3F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scouting_barter.Shared", "scouting_barter\Shared\scouting_barter.Shared.csproj", "{8AC01931-6DB7-4610-80AE-037F31AB5464}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "scouting_barter.Shared", "scouting_barter\Shared\scouting_barter.Shared.csproj", "{8AC01931-6DB7-4610-80AE-037F31AB5464}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

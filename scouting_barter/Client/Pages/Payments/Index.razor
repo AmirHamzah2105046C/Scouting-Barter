@@ -1,0 +1,54 @@
+﻿@page "/payments/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">Payments</h3>
+
+@if (Payments == null)
+{
+    <div class="alert alert-info">Loading Payments...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var payment in Payments)
+            {
+                <tr>
+                    <td>@payment.Order.Customer.CustName</td>
+                    <td>@payment.Order.Id</td>
+                    <td>@payment.PaymentType</td>
+                    <td>@payment.PaymentDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Payment> Payments;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Payments = await _client.GetFromJsonAsync<List<Payment>>($"{Endpoints.PaymentsEndpoint}");
+    }
+    async Task Delete(int paymentId)
+    {
+        var payment = Payments.First(q => q.Id == paymentId);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {payment.Order.Customer.CustName}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"{Endpoints.PaymentsEndpoint}/{paymentId}");
+            await OnInitializedAsync();
+        }
+    }
+}
