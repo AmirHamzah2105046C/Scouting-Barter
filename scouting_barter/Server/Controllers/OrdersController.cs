@@ -30,7 +30,7 @@ namespace scouting_barter.Server.Controllers
         public async Task<IActionResult> GetOrders()
         {
             //return await _context.Orders.ToListAsync();
-            var Orders = await _unitOfWork.Orders.GetAll(includes: q => q.Include(x => x.Customer));
+            var Orders = await _unitOfWork.Orders.GetAll(includes: q => q.Include(x => x.Customer).Include(x => x.OrderItem));
             return Ok(Orders);
         }
 

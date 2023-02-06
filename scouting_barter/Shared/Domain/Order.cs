@@ -11,6 +11,8 @@ namespace scouting_barter.Shared.Domain
         public DateTime OrderDate { get; set; }
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
-        public virtual List<Order> Orders { get; set; }
+        public int OrderItemId { get; set; }
+        public virtual OrderItem OrderItem { get; set; }
+        public virtual List<Payment> Payments { get; set; }
     }
 }

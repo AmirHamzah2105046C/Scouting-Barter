@@ -11,9 +11,9 @@ namespace scouting_barter.Shared.Domain
         public string ProductName { get; set; }
         public string ProductDesc { get; set; }
         public int ProductPrice { get; set; }
-        public int ProductCategoryId { get; set; }
-        public virtual ProductCategory ProductCategory { get; set; }
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
+        public int ProductCategoryId { get; set; }
+        public virtual ProductCategory ProductCategory { get; set; }
     }
 }

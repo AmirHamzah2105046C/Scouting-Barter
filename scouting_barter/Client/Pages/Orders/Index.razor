@@ -17,16 +17,28 @@ else
                 <th>ID</th>
                 <th>Date</th>
                 <th>Customer</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var order in Orders)
             {
-                <tr>
-                    <td>@order.Id</td>
-                    <td>@order.OrderDate</td>
-                    <td>@order.Customer.CustName</td>
-                </tr>
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.OrderDate</td>
+                <td>@order.Customer.CustName</td>
+                <td>
+                    <a href="/order/view/@order.Id" class="btn btn-primary">
+                        <span class="oi oi-book"></span>
+                    </a>
+                    <a href="/order/view/@order.Id" class="btn btn-warning">
+                        <span class="oi oi-pencil"></span>
+                    </a>
+                    <button class="btn btn-danger" @onclick="@(()=>Delete(order.Id))">
+                        <span class="oi oi-delete"></span>
+                    </button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

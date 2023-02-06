@@ -16,17 +16,28 @@ else
             <tr>
                 <th>Product Name</th>
                 <th>Quantity</th>
-                <th>Customer</th>
+                <th>Price</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var orderitem in OrderItems)
             {
-                <tr>
-                    <td>@orderitem.Product.ProductName</td>
-                    <td>@orderitem.ProductQuantity</td>
-                    <td>@orderitem.Order.Id</td>
-                </tr>
+            <tr>
+                <td>@orderitem.Product.ProductName</td>
+                <td>@orderitem.ProductQuantity</td>
+                <td>@orderitem.Product.ProductPrice</td>
+                <td>
+                    <a href="/orderitem/view/@orderitem.Id" class="btn btn-primary">
+                        <span class="oi oi-book"></span>
+                    </a>
+                    <a href="/orderitem/view/@orderitem.Id" class="btn btn-warning">
+                        <span class="oi oi-pencil"></span>
+                    </a>
+                    <button class="btn btn-danger" @onclick="@(()=>Delete(orderitem.Id))">
+                        <span class="oi oi-delete"></span>
+                    </button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -42,7 +53,7 @@ else
     async Task Delete(int orderitemId)
     {
         var orderitem = OrderItems.First(q => q.Id == orderitemId);
-        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {orderitem.Order.Id}?");
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {orderitem.Product.ProductName}?");
         if (confirm)
         {
             await _client.DeleteAsync($"{Endpoints.OrderItemsEndpoint}/{orderitemId}");

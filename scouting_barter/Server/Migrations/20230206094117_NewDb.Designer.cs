@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using scouting_barter.Server.Data;
 
-namespace scouting_barter.Server.Data.Migrations
+namespace scouting_barter.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230129185153_AddedDefaultDataAndUser")]
-    partial class AddedDefaultDataAndUser
+    [Migration("20230206094117_NewDb")]
+    partial class NewDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -154,14 +154,14 @@ namespace scouting_barter.Server.Data.Migrations
                         new
                         {
                             Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
-                            ConcurrencyStamp = "a430169c-2672-4ef0-8b89-d03276424d8a",
+                            ConcurrencyStamp = "c038ed2b-61f9-4d81-b70e-b526df8ba9c3",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
-                            ConcurrencyStamp = "53a6de98-60aa-4f3a-9d0e-a88d3a2de0d1",
+                            ConcurrencyStamp = "646681a3-27bb-48b7-b74c-24b9b2c8294f",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -357,7 +357,7 @@ namespace scouting_barter.Server.Data.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b1be7c7a-a8c8-4233-96b9-cfda344a4fae",
+                            ConcurrencyStamp = "1ff70c98-64cf-477a-97d0-2133728fbbbe",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -365,9 +365,9 @@ namespace scouting_barter.Server.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDgxLCh77LW1Seplbzakgdja9LZQozb28CL0PtLYflMvYZbFuQ21uA48KaxRJvsHjw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKM/Ux5W+P7yNzXiujvLZT3M8IHNLiBVPXOUAouRPMnbhVP/VISb9MBZy/1D1SXLXA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "64c17973-74dd-41f8-ba1f-35af54954ea5",
+                            SecurityStamp = "7a54a150-920b-4d11-b067-a9d7f6812e52",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -380,16 +380,25 @@ namespace scouting_barter.Server.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CustAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CustContact")
                         .HasColumnType("int");
 
-                    b.Property<string>("CustDOB")
+                    b.Property<string>("CustName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CustName")
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -400,26 +409,35 @@ namespace scouting_barter.Server.Data.Migrations
                         new
                         {
                             Id = 1,
+                            CreatedBy = "Jonathan",
                             CustAddress = "Tampines Street 1",
                             CustContact = 91890078,
-                            CustDOB = "05/09/2001",
-                            CustName = "Jonathan Lim"
+                            CustName = "Jonathan Lim",
+                            DateCreated = new DateTime(2023, 2, 6, 17, 41, 16, 945, DateTimeKind.Local).AddTicks(3250),
+                            DateUpdated = new DateTime(2023, 2, 6, 17, 41, 16, 945, DateTimeKind.Local).AddTicks(3231),
+                            UpdatedBy = "Jonathan"
                         },
                         new
                         {
                             Id = 2,
+                            CreatedBy = "Haziq",
                             CustAddress = "Serangoon Street 1",
                             CustContact = 85788009,
-                            CustDOB = "10/06/1985",
-                            CustName = "Haziq Hakim"
+                            CustName = "Haziq Hakim",
+                            DateCreated = new DateTime(2023, 2, 6, 17, 41, 16, 945, DateTimeKind.Local).AddTicks(4035),
+                            DateUpdated = new DateTime(2023, 2, 6, 17, 41, 16, 945, DateTimeKind.Local).AddTicks(4031),
+                            UpdatedBy = "Haziq"
                         },
                         new
                         {
                             Id = 3,
+                            CreatedBy = "Gerald",
                             CustAddress = "Toa Payoh Street 1",
                             CustContact = 95437721,
-                            CustDOB = "28/03/1999",
-                            CustName = "Gerald"
+                            CustName = "Gerald",
+                            DateCreated = new DateTime(2023, 2, 6, 17, 41, 16, 945, DateTimeKind.Local).AddTicks(4039),
+                            DateUpdated = new DateTime(2023, 2, 6, 17, 41, 16, 945, DateTimeKind.Local).AddTicks(4038),
+                            UpdatedBy = "Gerald"
                         });
                 });
 
@@ -430,14 +448,26 @@ namespace scouting_barter.Server.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<string>("OrderDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("OrderItemId")
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OrderItemId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -455,8 +485,14 @@ namespace scouting_barter.Server.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
@@ -464,9 +500,10 @@ namespace scouting_barter.Server.Data.Migrations
                     b.Property<int>("ProductQuantity")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("OrderId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
@@ -480,13 +517,28 @@ namespace scouting_barter.Server.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PaymentDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("PaymentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -503,8 +555,17 @@ namespace scouting_barter.Server.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ProductCategoryId")
                         .HasColumnType("int");
@@ -518,6 +579,9 @@ namespace scouting_barter.Server.Data.Migrations
                     b.Property<int>("ProductPrice")
                         .HasColumnType("int");
 
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
@@ -530,29 +594,41 @@ namespace scouting_barter.Server.Data.Migrations
                         new
                         {
                             Id = 1,
+                            CreatedBy = "Jonathan",
                             CustomerId = 1,
+                            DateCreated = new DateTime(2023, 2, 6, 17, 41, 16, 935, DateTimeKind.Local).AddTicks(9827),
+                            DateUpdated = new DateTime(2023, 2, 6, 17, 41, 16, 935, DateTimeKind.Local).AddTicks(9819),
                             ProductCategoryId = 1,
                             ProductDesc = "MX150, Intel i3 1500, 8gb ram, 1tb hdd",
                             ProductName = "Acer Laptop 1234",
-                            ProductPrice = 1100
+                            ProductPrice = 1100,
+                            UpdatedBy = "Jonathan"
                         },
                         new
                         {
                             Id = 2,
+                            CreatedBy = "Haziq",
                             CustomerId = 2,
+                            DateCreated = new DateTime(2023, 2, 6, 17, 41, 16, 936, DateTimeKind.Local).AddTicks(1046),
+                            DateUpdated = new DateTime(2023, 2, 6, 17, 41, 16, 936, DateTimeKind.Local).AddTicks(1042),
                             ProductCategoryId = 2,
                             ProductDesc = "1989 ld cow leather couch from syria",
                             ProductName = "Old Leather Couch",
-                            ProductPrice = 500
+                            ProductPrice = 500,
+                            UpdatedBy = "Haziq"
                         },
                         new
                         {
                             Id = 3,
+                            CreatedBy = "Gerald",
                             CustomerId = 3,
+                            DateCreated = new DateTime(2023, 2, 6, 17, 41, 16, 936, DateTimeKind.Local).AddTicks(1049),
+                            DateUpdated = new DateTime(2023, 2, 6, 17, 41, 16, 936, DateTimeKind.Local).AddTicks(1048),
                             ProductCategoryId = 3,
                             ProductDesc = "Sports fitness mat for yoga or other forms of aerobics",
                             ProductName = "Fitness mat",
-                            ProductPrice = 35
+                            ProductPrice = 35,
+                            UpdatedBy = "Gerald"
                         });
                 });
 
@@ -563,10 +639,22 @@ namespace scouting_barter.Server.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ProductCatDesc")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductCatType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -577,20 +665,32 @@ namespace scouting_barter.Server.Data.Migrations
                         new
                         {
                             Id = 1,
+                            CreatedBy = "Admin",
+                            DateCreated = new DateTime(2023, 2, 6, 17, 41, 16, 934, DateTimeKind.Local).AddTicks(7448),
+                            DateUpdated = new DateTime(2023, 2, 6, 17, 41, 16, 933, DateTimeKind.Local).AddTicks(8716),
                             ProductCatDesc = "Electronic devices that can be used for creating, storing, or transmitting information in the form of electronic data.",
-                            ProductCatType = "Technological Devices"
+                            ProductCatType = "Technological Devices",
+                            UpdatedBy = "Admin"
                         },
                         new
                         {
                             Id = 2,
+                            CreatedBy = "Admin",
+                            DateCreated = new DateTime(2023, 2, 6, 17, 41, 16, 934, DateTimeKind.Local).AddTicks(8755),
+                            DateUpdated = new DateTime(2023, 2, 6, 17, 41, 16, 934, DateTimeKind.Local).AddTicks(8750),
                             ProductCatDesc = "Household decorations",
-                            ProductCatType = "Furniture"
+                            ProductCatType = "Furniture",
+                            UpdatedBy = "Admin"
                         },
                         new
                         {
                             Id = 3,
+                            CreatedBy = "Admin",
+                            DateCreated = new DateTime(2023, 2, 6, 17, 41, 16, 934, DateTimeKind.Local).AddTicks(8758),
+                            DateUpdated = new DateTime(2023, 2, 6, 17, 41, 16, 934, DateTimeKind.Local).AddTicks(8757),
                             ProductCatDesc = "Equipment that are used for exercises or sports",
-                            ProductCatType = "Sports and Fitness"
+                            ProductCatType = "Sports and Fitness",
+                            UpdatedBy = "Admin"
                         });
                 });
 
@@ -653,24 +753,22 @@ namespace scouting_barter.Server.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("scouting_barter.Shared.Domain.OrderItem", null)
+                    b.HasOne("scouting_barter.Shared.Domain.OrderItem", "OrderItem")
                         .WithMany("Orders")
-                        .HasForeignKey("OrderItemId");
+                        .HasForeignKey("OrderItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
+
+                    b.Navigation("OrderItem");
                 });
 
             modelBuilder.Entity("scouting_barter.Shared.Domain.OrderItem", b =>
                 {
-                    b.HasOne("scouting_barter.Shared.Domain.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId");
-
                     b.HasOne("scouting_barter.Shared.Domain.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
-
-                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });
@@ -678,7 +776,7 @@ namespace scouting_barter.Server.Data.Migrations
             modelBuilder.Entity("scouting_barter.Shared.Domain.Payment", b =>
                 {
                     b.HasOne("scouting_barter.Shared.Domain.Order", "Order")
-                        .WithMany()
+                        .WithMany("Payments")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -708,6 +806,11 @@ namespace scouting_barter.Server.Data.Migrations
             modelBuilder.Entity("scouting_barter.Shared.Domain.Customer", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("scouting_barter.Shared.Domain.Order", b =>
+                {
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("scouting_barter.Shared.Domain.OrderItem", b =>

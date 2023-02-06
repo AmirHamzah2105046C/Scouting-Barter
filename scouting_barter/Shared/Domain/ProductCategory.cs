@@ -10,5 +10,7 @@ namespace scouting_barter.Shared.Domain
     {
         public string ProductCatType { get; set; }
         public string ProductCatDesc { get; set; }
+        //public virtual List<Product> Products { get; set; }
+
     }
 }
