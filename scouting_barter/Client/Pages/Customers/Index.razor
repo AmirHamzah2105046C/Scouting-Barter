@@ -5,6 +5,13 @@
 
 <h3 class="card-title">Customers</h3>
 
+<a href="/customers/create/" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Customer
+</a>
+<br />
+<br />
+
 @if (Customers == null)
 {
     <div class="alert alert-info">Loading Customers...</div>
@@ -23,22 +30,22 @@ else
         <tbody>
             @foreach (var customer in Customers)
             {
-            <tr>
-                <td>@customer.CustName</td>
-                <td>@customer.CustContact</td>
-                <td>@customer.CustAddress</td>
-                <td>
-                    <a href="/customer/view/@customer.Id" class="btn btn-primary">
-                        <span class="oi oi-book"></span>
-                    </a>
-                    <a href="/customer/view/@customer.Id" class="btn btn-warning">
-                        <span class="oi oi-pencil"></span>
-                    </a>
-                    <button class="btn btn-danger" @onclick="@(()=>Delete(customer.Id))">
-                        <span class="oi oi-delete"></span>
-                    </button>
-                </td>
-            </tr>
+                <tr>
+                    <td>@customer.CustName</td>
+                    <td>@customer.CustContact</td>
+                    <td>@customer.CustAddress</td>
+                    <td>
+                        <a href="/customers/view/@customer.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/customers/edit/@customer.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(customer.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

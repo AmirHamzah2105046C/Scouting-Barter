@@ -4,6 +4,14 @@
 @attribute [Authorize]
 
 <h3 class="card-title">Product Categories</h3>
+
+<a href="/productcategories/create/" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Category
+</a>
+<br />
+<br />
+
 @if (ProductCategories == null)
 {
     <div class="alert alert-info">Loading Product Categories</div>
@@ -18,15 +26,15 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach(var productcategory in ProductCategories)
+            @foreach (var productcategory in ProductCategories)
             {
                 <tr>
                     <td>@productcategory.ProductCatType</td>
                     <td>
-                        <a href="/productcategory/view/@productcategory.Id" class="btn btn-primary">
+                        <a href="/productcategories/view/@productcategory.Id" class="btn btn-primary">
                             <span class="oi oi-book"></span>
                         </a>
-                        <a href="/productcategory/view/@productcategory.Id" class="btn btn-warning">
+                        <a href="/productcategories/edit/@productcategory.Id" class="btn btn-warning">
                             <span class="oi oi-pencil"></span>
                         </a>
                         <button class="btn btn-danger" @onclick="@(()=>Delete(productcategory.Id))">

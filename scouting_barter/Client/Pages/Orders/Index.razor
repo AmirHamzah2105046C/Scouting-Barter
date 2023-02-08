@@ -5,6 +5,13 @@
 
 <h3 class="card-title">Orders</h3>
 
+<a href="/orders/create/" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Orders
+</a>
+<br />
+<br />
+
 @if (Orders == null)
 {
     <div class="alert alert-info">Loading Orders...</div>
@@ -14,7 +21,7 @@ else
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Order Item ID</th>
                 <th>Date</th>
                 <th>Customer</th>
                 <th>Action</th>
@@ -23,22 +30,22 @@ else
         <tbody>
             @foreach (var order in Orders)
             {
-            <tr>
-                <td>@order.Id</td>
-                <td>@order.OrderDate</td>
-                <td>@order.Customer.CustName</td>
-                <td>
-                    <a href="/order/view/@order.Id" class="btn btn-primary">
-                        <span class="oi oi-book"></span>
-                    </a>
-                    <a href="/order/view/@order.Id" class="btn btn-warning">
-                        <span class="oi oi-pencil"></span>
-                    </a>
-                    <button class="btn btn-danger" @onclick="@(()=>Delete(order.Id))">
-                        <span class="oi oi-delete"></span>
-                    </button>
-                </td>
-            </tr>
+                <tr>
+                    <td>@order.OrderItem.Id</td>
+                    <td>@order.OrderDate</td>
+                    <td>@order.Customer.CustName</td>
+                    <td>
+                        <a href="/orders/view/@order.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/orders/edit/@order.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(order.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

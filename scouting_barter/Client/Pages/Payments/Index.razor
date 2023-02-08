@@ -16,8 +16,8 @@ else
             <tr>
                 <th>Payment ID</th>
                 <th>Total Price</th>
-                <th>Category</th>
-                <th>Description</th>
+                <th>Payment Type</th>
+                <th>Date</th>
             </tr>
         </thead>
         <tbody>
@@ -25,13 +25,14 @@ else
             {
             <tr>
                 <td>@payment.Id</td>
+                <td>@((payment.Order.OrderItem.ProductQuantity * payment.Order.OrderItem.Product.ProductPrice).ToString())</td>
                 <td>@payment.PaymentType</td>
                 <td>@payment.PaymentDate</td>
                 <td>
-                    <a href="/payment/view/@payment.Id" class="btn btn-primary">
+                    <a href="/payments/view/@payment.Id" class="btn btn-primary">
                         <span class="oi oi-book"></span>
                     </a>
-                    <a href="/payment/view/@payment.Id" class="btn btn-warning">
+                    <a href="/payments/edit/@payment.Id" class="btn btn-warning">
                         <span class="oi oi-pencil"></span>
                     </a>
                     <button class="btn btn-danger" @onclick="@(()=>Delete(payment.Id))">

@@ -5,6 +5,13 @@
 
 <h3 class="card-title">OrderItems</h3>
 
+<a href="/orderitems/create/" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Order Items
+</a>
+<br />
+<br />
+
 @if (OrderItems == null)
 {
     <div class="alert alert-info">Loading OrderItems...</div>
@@ -22,22 +29,22 @@ else
         <tbody>
             @foreach (var orderitem in OrderItems)
             {
-            <tr>
-                <td>@orderitem.Product.ProductName</td>
-                <td>@orderitem.ProductQuantity</td>
-                <td>@orderitem.Product.ProductPrice</td>
-                <td>
-                    <a href="/orderitem/view/@orderitem.Id" class="btn btn-primary">
-                        <span class="oi oi-book"></span>
-                    </a>
-                    <a href="/orderitem/view/@orderitem.Id" class="btn btn-warning">
-                        <span class="oi oi-pencil"></span>
-                    </a>
-                    <button class="btn btn-danger" @onclick="@(()=>Delete(orderitem.Id))">
-                        <span class="oi oi-delete"></span>
-                    </button>
-                </td>
-            </tr>
+                <tr>
+                    <td>@orderitem.Product.ProductName</td>
+                    <td>@orderitem.ProductQuantity</td>
+                    <td>@orderitem.Product.ProductPrice</td>
+                    <td>
+                        <a href="/orderitems/view/@orderitem.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/orderitems/edit/@orderitem.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(orderitem.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
