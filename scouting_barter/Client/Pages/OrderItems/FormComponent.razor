@@ -1,56 +1,61 @@
 ﻿@inject HttpClient _client
 
-<h3>FormComponent</h3>
-
 <EditForm Model="@orderitem" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <div class="form-group">
-        <label>Product:</label>
-        <div>
-            <InputSelect @bind-Value="@orderitem.ProductId" class="form-control">
-                <option value="">--Select Product--</option>
-                @if (Products != null)
-                {
-                    foreach (var product in Products)
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Product:</label>
+            <div>
+                <InputSelect @bind-Value="@orderitem.ProductId" class="form-control">
+                    <option value="">--Select Product--</option>
+                    @if (Products != null)
                     {
-                        <option value="@product.Id">@product.ProductName</option>
+                        foreach (var product in Products)
+                        {
+                            <option value="@product.Id">@product.ProductName</option>
+                        }
                     }
-                }
-            </InputSelect>
-            <ValidationMessage For="@(()=>orderitem.ProductId)" />
+                </InputSelect>
+                <ValidationMessage For="@(()=>orderitem.ProductId)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Quantity:</label>
-        <div>
-            <InputNumber @bind-Value="@orderitem.ProductQuantity" class="form-control" />
-            <ValidationMessage For="@(()=>orderitem.ProductQuantity)" />
+        <div class="form-group">
+            <label>Quantity:</label>
+            <div>
+                <InputNumber @bind-Value="@orderitem.ProductQuantity" class="form-control" />
+                <ValidationMessage For="@(()=>orderitem.ProductQuantity)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Price:</label>
-        <div>
-            <InputSelect @bind-Value="@orderitem.ProductId" class="form-control">
-                <option value="">--Select Price--</option>
-                @if (Products != null)
-                {
-                    foreach (var product in Products)
+        <div class="form-group">
+            <label>Price:</label>
+            <div>
+                <InputSelect @bind-Value="@orderitem.ProductId" class="form-control">
+                    <option value="">--Select Price--</option>
+                    @if (Products != null)
                     {
-                        <option value="@product.Id">@product.ProductPrice</option>
+                        foreach (var product in Products)
+                        {
+                            <option value="@product.Id">@product.ProductPrice</option>
+                        }
                     }
-                }
-            </InputSelect>
-            <ValidationMessage For="@(()=>orderitem.ProductId)" />
+                </InputSelect>
+                <ValidationMessage For="@(()=>orderitem.ProductId)" />
+            </div>
         </div>
-    </div>
+    </fieldset>
 
-    <button type="submit" class="btn btn-success btn-block">
-        @ButtonText
-    </button>
+        @if (!Disabled)
+        {
+            <button type="submit" class="btn btn-success btn-block">
+                @ButtonText
+            </button>
+        }
+        <BackToList Target="orderitems" />
 </EditForm>
 
 @code {
+    [Parameter] public bool Disabled { get; set; } = false;
     [Parameter] public OrderItem orderitem { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
