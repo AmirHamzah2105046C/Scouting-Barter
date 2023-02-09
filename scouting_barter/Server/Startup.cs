@@ -8,7 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using scouting_barter.Server.Data;
+using scouting_barter.Server.IRepository;
 using scouting_barter.Server.Models;
+using scouting_barter.Server.Repository;
 using System.Linq;
 
 namespace scouting_barter.Server
@@ -32,7 +34,7 @@ namespace scouting_barter.Server
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
@@ -41,7 +43,10 @@ namespace scouting_barter.Server
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            services.AddControllersWithViews();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(op => op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddRazorPages();
         }
 

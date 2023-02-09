@@ -1,0 +1,67 @@
+﻿@page "/productcategories/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">Product Categories</h3>
+
+<a href="/productcategories/create/" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Category
+</a>
+<br />
+<br />
+
+@if (ProductCategories == null)
+{
+    <div class="alert alert-info">Loading Product Categories</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Product Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var productcategory in ProductCategories)
+            {
+                <tr>
+                    <td>@productcategory.ProductCatType</td>
+                    <td>
+                        <a href="/productcategories/view/@productcategory.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/productcategories/edit/@productcategory.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(productcategory.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<ProductCategory> ProductCategories;
+
+    protected async override Task OnInitializedAsync()
+    {
+        ProductCategories = await _client.GetFromJsonAsync<List<ProductCategory>>($"{Endpoints.ProductCategoriesEndpoint}");
+    }
+    async Task Delete(int productcategoryId)
+    {
+        var productcategory = ProductCategories.First(q => q.Id == productcategoryId);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {productcategory.ProductCatType}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"{Endpoints.ProductCategoriesEndpoint}/{productcategoryId}");
+            await OnInitializedAsync();
+        }
+    }
+}

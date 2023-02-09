@@ -1,0 +1,88 @@
+﻿@page  "/products/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create Products</h3>
+<hr />
+<br />
+
+<EditForm Model="@product" OnValidSubmit="CreateProduct">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label>Name:</label>
+        <div>
+            <InputText @bind-Value="@product.ProductName" class="form-control" />
+            <ValidationMessage For="@(()=>product.ProductName)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Price:</label>
+        <div>
+            <InputNumber @bind-Value="@product.ProductPrice" class="form-control" />
+            <ValidationMessage For="@(()=>product.ProductPrice)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Customer:</label>
+        <div>
+            <InputSelect @bind-Value="@product.CustomerId" class="form-control">
+                <option value="">--Select Customer--</option>
+                @if (Customers != null)
+                {
+                    foreach (var customer in Customers)
+                    {
+                        <option value="@customer.Id">@customer.CustName</option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(()=>product.CustomerId)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Category:</label>
+        <div>
+            <InputSelect @bind-Value="@product.ProductCategoryId" class="form-control">
+                <option value="">--Select Category--</option>
+                @if (ProductCategories != null)
+                {
+                    foreach (var productcategory in ProductCategories)
+                    {
+                        <option value="@productcategory.Id">@productcategory.ProductCatType</option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(()=>product.ProductCategoryId)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Description:</label>
+        <div>
+            <InputText @bind-Value="@product.ProductDesc" class="form-control" />
+            <ValidationMessage For="@(()=>product.ProductDesc)" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success btn-block">
+        Create Product
+    </button>
+</EditForm>
+
+@code {
+    Product product = new Product();
+
+    private IList<ProductCategory> ProductCategories;
+    private IList<Customer> Customers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        ProductCategories = await _client.GetFromJsonAsync<List<ProductCategory>>($"{Endpoints.ProductCategoriesEndpoint}");
+        Customers = await _client.GetFromJsonAsync<List<Customer>>($"{Endpoints.CustomersEndpoint}");
+    }
+
+    private async Task CreateProduct()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ProductsEndpoint, product);
+        _navManager.NavigateTo("/products/");
+    }
+}
